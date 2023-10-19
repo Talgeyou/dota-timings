@@ -1,0 +1,18 @@
+{
+  "name": "dota-timings",
+  "version": "1.0.0",
+  "description": "App for tracking dota timings in-game",
+  "license": "MIT",
+  "author": {
+    "name": "Talge",
+    "email": "talgeyou@gmail.com",
+    "url": "https://github.com/Talgeyou"
+  },
+  "main": "./dist/main/main.js",
+  "scripts": {
+    "rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+    "postinstall": "npm run rebuild && npm run link-modules",
+    "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
+  },
+  "dependencies": {}
+}
