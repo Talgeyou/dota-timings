@@ -6,4 +6,9 @@ export type Color =
   | 'warning'
   | 'danger';
 
-export type WidgetState = 'unknown' | 'idle' | 'warning' | 'success';
+export type TimerWidgetState = 'unknown' | 'idle' | 'warning' | 'success';
+export type PerformanceWidgetState =
+  | 'unknown'
+  | 'danger'
+  | 'warning'
+  | 'success';

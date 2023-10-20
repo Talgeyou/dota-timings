@@ -1,5 +1,5 @@
 import { DotaMapGameState } from '~/types';
-import { WidgetState } from '~/overlay/shared/types';
+import { PerformanceWidgetState } from '~/overlay/shared/types';
 
 type GetPerformanceWidgetStateWithGameStateParams =
   | {
@@ -23,17 +23,17 @@ export function getPerformanceWidgetState({
   value,
   successThreshold,
   warningThreshold,
-}: GetPerformanceWidgetStateParams): WidgetState {
+}: GetPerformanceWidgetStateParams): PerformanceWidgetState {
   if (expectedGameState && expectedGameState !== gameState) {
     return 'unknown';
   }
 
   if (!value) {
-    return 'idle';
+    return 'unknown';
   }
 
   if (!successThreshold && !warningThreshold) {
-    return 'idle';
+    return 'unknown';
   }
 
   if (successThreshold && value >= successThreshold) {
@@ -44,5 +44,5 @@ export function getPerformanceWidgetState({
     return 'warning';
   }
 
-  return 'idle';
+  return 'danger';
 }

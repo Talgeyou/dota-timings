@@ -1,5 +1,5 @@
 import { DotaMapGameState } from '~/types';
-import { WidgetState } from '~/overlay/shared/types';
+import { TimerWidgetState } from '~/overlay/shared/types';
 
 type GetTimerWidgetStateWithGameStateParams =
   | {
@@ -25,7 +25,7 @@ export function getTimerWidgetState({
   warningTime = 30,
   successTime = 0,
   indicatePresence = true,
-}: GetTimerWidgetStateParams): WidgetState {
+}: GetTimerWidgetStateParams): TimerWidgetState {
   if (expectedGameState && expectedGameState !== gameState) {
     return 'unknown';
   }
