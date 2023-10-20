@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { OverlayConfig } from '../../../overlay-config';
+import { OverlayConfig } from '~/overlay-config';
 
 type OverlayConfigState = {
   status: 'idle' | 'loaded';

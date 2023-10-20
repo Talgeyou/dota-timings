@@ -1,3 +1,1 @@
-import RoshanTimer from './roshan-timer';
-
-export default RoshanTimer;
+export { RoshanTimer } from './roshan-timer';

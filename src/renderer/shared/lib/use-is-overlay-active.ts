@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function useIsOverlayActive() {
+export function useIsOverlayActive() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {

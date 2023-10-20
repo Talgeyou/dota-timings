@@ -1,16 +1,16 @@
 import { cn } from '@nextui-org/system';
 import { Chip, Kbd } from '@nextui-org/react';
-import ThemeSwitcher, { useTheme } from '../features/theme-switcher';
-import useIsOverlayActive from '../shared/lib/use-is-overlay-active';
-import AegisTimer from '../widgets/aegis-timer';
-import BountyTimer from '../widgets/bounty-timer';
-import ExperiencePerMinute from '../widgets/experience-per-minute';
-import GoldPerMinute from '../widgets/gold-per-minute';
-import RoshanTimer from '../widgets/roshan-timer';
-import WisdomTimer from '../widgets/wisdom-timer';
-import LotusTimer from '../widgets/lotus-timer';
+import { useIsOverlayActive } from '~/overlay/shared/lib/use-is-overlay-active';
+import { ThemeSwitcher, useTheme } from '~/overlay/features/theme-switcher';
+import { AegisTimer } from '~/overlay/widgets/aegis-timer';
+import { BountyTimer } from '~/overlay/widgets/bounty-timer';
+import { ExperiencePerMinute } from '~/overlay/widgets/experience-per-minute';
+import { GoldPerMinute } from '~/overlay/widgets/gold-per-minute';
+import { LotusTimer } from '~/overlay/widgets/lotus-timer';
+import { RoshanTimer } from '~/overlay/widgets/roshan-timer';
+import { WisdomTimer } from '~/overlay/widgets/wisdom-timer';
 
-export default function Overlay() {
+export function Overlay() {
   const isOverlayActive = useIsOverlayActive();
   const [theme] = useTheme();
 

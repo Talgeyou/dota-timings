@@ -1,4 +1,2 @@
-import ThemeSwitcher from './theme-switcher';
-
-export { default as ThemeProvider } from './theme-provider';
-export default ThemeSwitcher;
+export { ThemeProvider } from './theme-provider';
+export { ThemeSwitcher } from './theme-switcher';

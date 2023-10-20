@@ -5,7 +5,7 @@ type ClickOutsideHookParams<T> = {
   callback: () => void;
 };
 
-export default function useClickOutside<T extends HTMLElement>({
+export function useClickOutside<T extends HTMLElement>({
   ref,
   callback,
 }: ClickOutsideHookParams<T>) {

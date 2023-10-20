@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dotaDataReducer from '../shared/lib/dota-data';
-import overlayConfigReducer from '../shared/lib/overlay-config';
+import dotaDataReducer from '~/overlay/shared/lib/dota-data';
+import overlayConfigReducer from '~/overlay/shared/lib/overlay-config';
 
 export const store = configureStore({
   reducer: {

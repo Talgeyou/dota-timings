@@ -101,8 +101,6 @@ listenRenderer('OVERLAY_CONFIG_UPDATE_THEME', (_, payload) => {
 
   overlayConfig.theme = payload;
 
-  console.log({ newTheme: payload });
-
   saveOverlayConfig(overlayConfig);
 });
 

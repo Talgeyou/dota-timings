@@ -1,14 +1,21 @@
 import { useCallback, useEffect } from 'react';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import Overlay from '../pages/overlay';
-import useAppDispatch from '../shared/lib/use-app-dispatch';
-import useDotaNewData from '../shared/lib/use-dota-new-data';
-import { setNewData } from '../shared/lib/dota-data';
-import { DotaNewData } from '../../types';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { Overlay } from '~/overlay/pages/overlay';
+import { DotaNewData } from '~/types';
+import { useAppDispatch } from '~/overlay/shared/lib/use-app-dispatch';
+import { useDotaNewData } from '~/overlay/shared/lib/use-dota-new-data';
+import { setNewData } from '~/overlay/shared/lib/dota-data';
+import { setConfig } from '~/overlay/shared/lib/overlay-config';
 import './app.css';
-import { setConfig } from '../shared/lib/overlay-config';
 
-export default function App() {
+const router = createMemoryRouter([
+  {
+    path: '',
+    Component: Overlay,
+  },
+]);
+
+export function App() {
   const dispatch = useAppDispatch();
 
   const handleNewData = useCallback(
@@ -33,11 +40,5 @@ export default function App() {
     };
   }, [dispatch]);
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Overlay />} />
-      </Routes>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 }

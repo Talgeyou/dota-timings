@@ -1,3 +1,1 @@
-import BountyTimer from './bounty-timer';
-
-export default BountyTimer;
+export { BountyTimer } from './bounty-timer';

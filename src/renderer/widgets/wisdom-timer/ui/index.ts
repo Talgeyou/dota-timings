@@ -1,3 +1,1 @@
-import WisdomTimer from './wisdom-timer';
-
-export default WisdomTimer;
+export { WisdomTimer } from './wisdom-timer';

@@ -1,14 +1,14 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import Moveable from 'react-moveable';
 import { cn } from '@nextui-org/system';
-import useIsOverlayActive from '../lib/use-is-overlay-active';
-import useToggle from '../lib/use-toggle';
-import useAppSelector from '../lib/use-app-selector';
 import {
   createWidgetSelector,
   selectOverlayConfigStatus,
-} from '../lib/overlay-config';
-import useClickOutside from '../lib/use-click-outside';
+} from '~/overlay/shared/lib/overlay-config';
+import { useAppSelector } from '~/overlay/shared/lib/use-app-selector';
+import { useClickOutside } from '~/overlay/shared/lib/use-click-outside';
+import { useIsOverlayActive } from '~/overlay/shared/lib/use-is-overlay-active';
+import { useToggle } from '~/overlay/shared/lib/use-toggle';
 
 const ALT_KEY = 'Alt';
 
@@ -40,7 +40,7 @@ type Props = {
   widgetKey: string;
 };
 
-export default function Widget(props: Props) {
+export function Widget(props: Props) {
   const { children, widgetKey } = props;
 
   const config = useAppSelector(createWidgetSelector(widgetKey));

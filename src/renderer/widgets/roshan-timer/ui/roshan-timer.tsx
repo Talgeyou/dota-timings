@@ -1,17 +1,6 @@
-import { useMemo } from 'react';
 import { Chip, cn } from '@nextui-org/react';
-import Widget from '../../../shared/ui/widget';
-import useIsOverlayActive from '../../../shared/lib/use-is-overlay-active';
-import useAppSelector from '../../../shared/lib/use-app-selector';
-import {
-  selectCurrentGameTime,
-  selectGameState,
-  selectLastRoshanKillTiming,
-} from '../../../shared/lib/dota-data';
-import { DotaMapGameState } from '../../../../types';
-
-const ROSHAN_MIN_TIME = 8 * 60;
-const ROSHAN_MAX_TIME = 11 * 60;
+import { Widget } from '~/overlay/shared/ui/widget';
+import { useRoshanTimer } from '~/overlay/widgets/roshan-timer/model/use-roshan-timer';
 
 const WIDGET_KEYS = {
   roshan: 'roshan-timer',
@@ -19,71 +8,17 @@ const WIDGET_KEYS = {
   roshanMax: 'roshan-max-timer',
 };
 
-export default function RoshanTimer() {
-  const gameState = useAppSelector(selectGameState);
-  const lastRoshanKillTiming = useAppSelector(selectLastRoshanKillTiming);
-  const currentGameTime = useAppSelector(selectCurrentGameTime);
-  const isOverlayActive = useIsOverlayActive();
-
-  const roshanMinTimeLeft =
-    typeof lastRoshanKillTiming === 'number' &&
-    typeof currentGameTime === 'number'
-      ? lastRoshanKillTiming + ROSHAN_MIN_TIME - currentGameTime
-      : 0;
-
-  const roshanMaxTimeLeft =
-    typeof lastRoshanKillTiming === 'number' &&
-    typeof currentGameTime === 'number'
-      ? lastRoshanKillTiming + ROSHAN_MAX_TIME - currentGameTime
-      : 0;
-
-  const roshanText = useMemo(() => {
-    if (gameState !== DotaMapGameState.GameInProgress) {
-      return 'Start game';
-    }
-
-    if (roshanMaxTimeLeft <= 0) {
-      return 'Actually alive';
-    }
-
-    if (roshanMinTimeLeft <= 0) {
-      return 'Maybe alive';
-    }
-
-    return 'Dead';
-  }, [gameState, roshanMaxTimeLeft, roshanMinTimeLeft]);
-
-  const roshanColor = useMemo(() => {
-    if (gameState !== DotaMapGameState.GameInProgress) {
-      return 'default';
-    }
-
-    if (roshanMaxTimeLeft <= 0) {
-      return 'success';
-    }
-
-    if (roshanMinTimeLeft <= 0) {
-      return 'warning';
-    }
-
-    return 'danger';
-  }, [gameState, roshanMaxTimeLeft, roshanMinTimeLeft]);
-
-  const minTimingText = useMemo(() => {
-    if (gameState !== DotaMapGameState.GameInProgress) {
-      return 'Start game';
-    }
-
-    return `${roshanMinTimeLeft}s`;
-  }, [gameState, roshanMinTimeLeft]);
-
-  const maxTimingText = useMemo(() => {
-    if (gameState !== DotaMapGameState.GameInProgress) {
-      return 'Start game';
-    }
-
-    return `${roshanMaxTimeLeft}s`;
-  }, [gameState, roshanMaxTimeLeft]);
+export function RoshanTimer() {
+  const {
+    maxTimingText,
+    minTimingText,
+    roshanColor,
+    roshanText,
+    maxTimingColor,
+    minTimingColor,
+    showMaxTiming,
+    showMinTiming,
+  } = useRoshanTimer();
 
   return (
     <>
@@ -100,14 +35,10 @@ export default function RoshanTimer() {
       <Widget widgetKey={WIDGET_KEYS.roshanMin}>
         <Chip
           variant="dot"
-          color={
-            roshanMinTimeLeft > 0 && roshanMinTimeLeft < 30
-              ? 'warning'
-              : 'danger'
-          }
+          color={minTimingColor}
           classNames={{ base: 'max-w-full bg-neutral-200 dark:bg-neutral-900' }}
           className={cn('opacity-0', {
-            'opacity-100': isOverlayActive || roshanMinTimeLeft > 0,
+            'opacity-100': showMinTiming,
           })}
           size="sm"
         >
@@ -117,14 +48,10 @@ export default function RoshanTimer() {
       <Widget widgetKey={WIDGET_KEYS.roshanMax}>
         <Chip
           variant="dot"
-          color={
-            roshanMaxTimeLeft > 0 && roshanMaxTimeLeft < 30
-              ? 'warning'
-              : 'danger'
-          }
+          color={maxTimingColor}
           classNames={{ base: 'max-w-full bg-neutral-200 dark:bg-neutral-900' }}
           className={cn('opacity-0', {
-            'opacity-100': isOverlayActive || roshanMaxTimeLeft > 0,
+            'opacity-100': showMaxTiming,
           })}
           size="sm"
         >

@@ -1,3 +1,1 @@
-import RoshanTimer from './ui';
-
-export default RoshanTimer;
+export { RoshanTimer } from './ui';

@@ -1,3 +1,1 @@
-import BountyTimer from './ui';
-
-export default BountyTimer;
+export { BountyTimer } from './ui';

@@ -1,3 +1,1 @@
-import ExperiencePerMinute from './ui';
-
-export default ExperiencePerMinute;
+export { ExperiencePerMinute } from './ui';

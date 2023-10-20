@@ -11,7 +11,7 @@ function ThemeSwitcherThumb({ isSelected, className }: SwitchThumbIconProps) {
   );
 }
 
-export default function ThemeSwitcher() {
+export function ThemeSwitcher() {
   const [theme, setTheme] = useTheme();
 
   const handleChange = useCallback(

@@ -16,6 +16,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'consistent-return': 'off',
     'no-undef': 'off',
+    'import/prefer-default-export': 'off',
   },
   parserOptions: {
     ecmaVersion: 2022,

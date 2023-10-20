@@ -1,13 +1,13 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { useAppSelector } from '~/overlay/shared/lib/use-app-selector';
+import { selectOverlayConfigTheme } from '~/overlay/shared/lib/overlay-config';
 import { Theme, ThemeContext } from '../model';
-import useAppSelector from '../../../shared/lib/use-app-selector';
-import { selectOverlayConfigTheme } from '../../../shared/lib/overlay-config';
 
 type Props = {
   children: ReactNode;
 };
 
-export default function ThemeProvider({ children }: Props) {
+export function ThemeProvider({ children }: Props) {
   const [theme, setTheme] = useState<Theme>('light');
   const savedTheme = useAppSelector(selectOverlayConfigTheme);
 

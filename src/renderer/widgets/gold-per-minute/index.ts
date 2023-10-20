@@ -1,3 +1,1 @@
-import GoldPerMinute from './ui';
-
-export default GoldPerMinute;
+export { GoldPerMinute } from './ui';

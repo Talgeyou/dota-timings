@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import openDotaAxios from './open-dota';
+import { openDotaAxios } from './open-dota';
 
 export type HeroBenchMarks = {
   hero_id: 6;
@@ -99,7 +99,7 @@ export type HeroBenchMarks = {
   };
 };
 
-export default function useHeroBenchmarks(heroId?: number) {
+export function useHeroBenchmarks(heroId?: number) {
   const query = useQuery({
     queryKey: `hero-${heroId}-benchmarks`,
     queryFn: ({ signal }) =>

@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "paths": {
+      "~/overlay/*": ["./src/renderer/*"],
+      "~/*": ["./src/*"]
+    },
     "incremental": true,
     "target": "es2022",
     "module": "commonjs",

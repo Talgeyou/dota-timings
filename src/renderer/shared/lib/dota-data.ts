@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { DotaEventKey, DotaMapGameState, DotaNewData } from '../../../types';
+import { DotaMapGameState, DotaNewData, DotaEventKey } from '~/types';
 
 type DotaDataState = {
   lastRoshanKillTiming?: number;

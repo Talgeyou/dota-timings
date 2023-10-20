@@ -1,3 +1,1 @@
-import WisdomTimer from './ui';
-
-export default WisdomTimer;
+export { WisdomTimer } from './ui';

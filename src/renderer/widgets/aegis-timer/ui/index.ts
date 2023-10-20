@@ -1,3 +1,1 @@
-import AegisTimer from './aegis-timer';
-
-export default AegisTimer;
+export { AegisTimer } from './aegis-timer';

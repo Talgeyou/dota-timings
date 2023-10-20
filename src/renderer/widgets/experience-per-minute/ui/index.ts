@@ -1,3 +1,1 @@
-import ExperiencePerMinute from './experience-per-minute';
-
-export default ExperiencePerMinute;
+export { ExperiencePerMinute } from './experience-per-minute';

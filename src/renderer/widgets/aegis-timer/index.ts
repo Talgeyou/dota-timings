@@ -1,3 +1,1 @@
-import AegisTimer from './ui';
-
-export default AegisTimer;
+export { AegisTimer } from './ui';
