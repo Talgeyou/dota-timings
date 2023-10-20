@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   selectCurrentClockTime,
   selectGameState,
@@ -7,11 +7,14 @@ import { useAppSelector } from '~/overlay/shared/lib/use-app-selector';
 import { DotaMapGameState } from '~/types';
 import { getTimerWidgetState } from '~/overlay/shared/lib/get-timer-widget-state';
 import { WIDGET_COLOR_BY_STATE } from '~/overlay/shared/constants';
-import { LOTUS_INTERVAL, NOTIFY_DURATION } from './constants';
+import { useNotify } from '~/overlay/shared/lib/use-notify';
+import { LOTUS_INTERVAL } from './constants';
 
 export function useLotusTimer() {
   const currentClockTime = useAppSelector(selectCurrentClockTime);
   const gameState = useAppSelector(selectGameState);
+
+  const { isNotifying, notify } = useNotify();
 
   const nextLotusTimeLeft =
     LOTUS_INTERVAL -
@@ -19,15 +22,13 @@ export function useLotusTimer() {
       ? currentClockTime % LOTUS_INTERVAL
       : 0);
 
-  const isNotify =
-    typeof currentClockTime === 'number' &&
-    LOTUS_INTERVAL - nextLotusTimeLeft < NOTIFY_DURATION;
-
-  const state = getTimerWidgetState({
-    expectedGameState: DotaMapGameState.GameInProgress,
-    gameState,
-    timeLeft: nextLotusTimeLeft,
-  });
+  const state = isNotifying
+    ? 'success'
+    : getTimerWidgetState({
+        expectedGameState: DotaMapGameState.GameInProgress,
+        gameState,
+        timeLeft: nextLotusTimeLeft,
+      });
 
   const color = WIDGET_COLOR_BY_STATE[state];
 
@@ -36,12 +37,18 @@ export function useLotusTimer() {
       return 'Start game';
     }
 
-    if (isNotify) {
+    if (isNotifying) {
       return 'Pick up lotus';
     }
 
     return `${nextLotusTimeLeft}s`;
-  }, [isNotify, nextLotusTimeLeft, state]);
+  }, [isNotifying, nextLotusTimeLeft, state]);
+
+  useEffect(() => {
+    if (state !== 'unknown' && nextLotusTimeLeft === 1) {
+      notify();
+    }
+  }, [nextLotusTimeLeft, notify, state]);
 
   return useMemo(() => ({ text, color }), [color, text]);
 }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   selectGameState,
   selectCurrentClockTime,
@@ -7,11 +7,14 @@ import { useAppSelector } from '~/overlay/shared/lib/use-app-selector';
 import { DotaMapGameState } from '~/types';
 import { getTimerWidgetState } from '~/overlay/shared/lib/get-timer-widget-state';
 import { WIDGET_COLOR_BY_STATE } from '~/overlay/shared/constants';
-import { WISDOM_INTERVAL, NOTIFY_DURATION } from './constants';
+import { useNotify } from '~/overlay/shared/lib/use-notify';
+import { WISDOM_INTERVAL } from './constants';
 
 export function useWisdomTimer() {
   const gameState = useAppSelector(selectGameState);
   const currentClockTime = useAppSelector(selectCurrentClockTime);
+
+  const { isNotifying, notify } = useNotify();
 
   const nextRuneTimeLeft =
     WISDOM_INTERVAL -
@@ -19,17 +22,13 @@ export function useWisdomTimer() {
       ? currentClockTime % WISDOM_INTERVAL
       : 0);
 
-  const isNotify =
-    typeof currentClockTime === 'number' &&
-    gameState === DotaMapGameState.GameInProgress &&
-    typeof nextRuneTimeLeft === 'number' &&
-    WISDOM_INTERVAL - nextRuneTimeLeft < NOTIFY_DURATION;
-
-  const state = getTimerWidgetState({
-    expectedGameState: DotaMapGameState.GameInProgress,
-    gameState,
-    timeLeft: nextRuneTimeLeft,
-  });
+  const state = isNotifying
+    ? 'success'
+    : getTimerWidgetState({
+        expectedGameState: DotaMapGameState.GameInProgress,
+        gameState,
+        timeLeft: nextRuneTimeLeft,
+      });
 
   const color = WIDGET_COLOR_BY_STATE[state];
 
@@ -38,12 +37,18 @@ export function useWisdomTimer() {
       return 'Start game';
     }
 
-    if (isNotify) {
+    if (isNotifying) {
       return 'Pick up wisdom rune';
     }
 
     return `${nextRuneTimeLeft}s`;
-  }, [isNotify, nextRuneTimeLeft, state]);
+  }, [isNotifying, nextRuneTimeLeft, state]);
+
+  useEffect(() => {
+    if (state !== 'unknown' && nextRuneTimeLeft === 1) {
+      notify();
+    }
+  }, [nextRuneTimeLeft, notify, state]);
 
   return useMemo(
     () => ({
