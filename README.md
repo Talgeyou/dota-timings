@@ -75,7 +75,7 @@ You should enable dota 2 game state integration.
    ```
    and name and paste following content there:
    ```sh
-   "Dota Timings v1.0.0"
+   "Dota Timings v1.0.1"
     {
       "uri"        "http://localhost:3000"
       "timeout" 	"5.0"
