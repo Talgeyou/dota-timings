@@ -73,7 +73,7 @@ You should enable dota 2 game state integration.
    ```sh
    gamestate_integration_dota-timings.cfg
    ```
-   and name and paste following content there:
+   and paste following content there:
    ```sh
    "Dota Timings v1.0.1"
     {
