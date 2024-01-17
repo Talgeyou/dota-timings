@@ -19,7 +19,7 @@ describe('getPerformanceWidgetState', () => {
         expectedGameState: DotaMapGameState.GameInProgress,
         gameState: DotaMapGameState.GameInProgress,
       }),
-    ).toEqual('idle');
+    ).toEqual('unknown');
   });
 
   it('widget state is warning', () => {
