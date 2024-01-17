@@ -28,6 +28,7 @@ export function useGoldPerMinute() {
   const state = getPerformanceWidgetState({
     expectedGameState: DotaMapGameState.GameInProgress,
     gameState,
+    value: gpm,
     successThreshold: bestGpm,
     warningThreshold: averageGpm,
   });

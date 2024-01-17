@@ -1,3 +1,7 @@
+# 1.0.2
+
+- Fixed GPM widget color
+
 # 1.0.1
 
 - Fixed wrong rune timers display in the start of the game
